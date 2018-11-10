@@ -3,12 +3,14 @@ import 'package:conference/circular_reveal_widget.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rect_getter/rect_getter.dart';
 
 class RegistrationPage extends StatefulWidget {
   _RegistrationPageState createState() => _RegistrationPageState();
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  var loginKey = RectGetter.createGlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +23,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
             labelStyle: TextStyle(color: Colors.white),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.circular(8.0),
-            ),            
+              borderRadius: BorderRadius.circular(16.0),
+            ),
           ),
         ),
         child: Container(
@@ -36,7 +38,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ],
             ),
           ),
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(32.0),
           child: Center(
             child: SingleChildScrollView(
               child: Column(
@@ -53,17 +55,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       prefixIcon:
                           Icon(FontAwesomeIcons.solidEnvelope, size: 18.0),
                       labelText: 'E-Mail',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
                     ),
                   ),
                   SizedBox(height: 8.0),
                   TextField(
                     decoration: InputDecoration(
                       labelText: 'Username',
-                      prefixIcon: Icon(FontAwesomeIcons.userCog, size: 18.0),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
+                      prefixIcon: Icon(FontAwesomeIcons.userAlt, size: 18.0),
                     ),
                   ),
                   SizedBox(height: 8.0),
@@ -80,30 +78,36 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     decoration: InputDecoration(
                       prefixIcon: Icon(FontAwesomeIcons.lock, size: 18.0),
                       labelText: 'Repeat your password',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
                     ),
                   ),
                   SizedBox(height: 8.0),
                   Row(
                     children: [
-                      FlatButton.icon(
-                        icon: Icon(FontAwesomeIcons.signInAlt, size: 18.0),
-                        label: Text('I have an account'),
-                        onPressed: () {
-                          Application.router.navigateTo(
-                            context,
-                            "/login",
-                            transition: TransitionType.custom,
-                            transitionDuration: Duration(milliseconds: 250),
-                            transitionBuilder: (context, animation, _, widget) {
-                              return PageRevealWidget(
+                      RectGetter(
+                        key: loginKey,
+                        child: FlatButton.icon(
+                          icon: Icon(FontAwesomeIcons.signInAlt, size: 18.0),
+                          label: Text('I have an account'),
+                          onPressed: () {
+                            Application.router.navigateTo(
+                              context,
+                              "/login",
+                              transition: TransitionType.custom,
+                              transitionDuration: Duration(milliseconds: 400),
+                              transitionBuilder:
+                                  (context, animation, _, widget) {
+                                return PageRevealWidget(
                                   child: widget,
-                                  revealPercent: animation.value);
-                            },
-                          );
-                        },
-                        textColor: Colors.white,
+                                  revealPercent: animation.value,
+                                  clickPosition:
+                                      RectGetter.getRectFromKey(loginKey)
+                                          .center,
+                                );
+                              },
+                            );
+                          },
+                          textColor: Colors.white,
+                        ),
                       ),
                       FlatButton.icon(
                         icon: Icon(FontAwesomeIcons.chevronRight, size: 18.0),
