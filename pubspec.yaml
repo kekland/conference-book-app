@@ -28,6 +28,10 @@ dependencies:
   path_provider:
   date_format:
   flutter_spinkit: "^3.0.0"
+  firebase_auth:
+  google_sign_in:
+  cloud_firestore:
+
   dynamic_theme:
     git:
       url: git://github.com/Norbert515/dynamic_theme.git

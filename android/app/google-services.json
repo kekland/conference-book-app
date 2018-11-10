@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "995071781018",
+    "firebase_url": "https://conference-book-37142.firebaseio.com",
+    "project_id": "conference-book-37142",
+    "storage_bucket": "conference-book-37142.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995071781018:android:e8f9bf9a6318d76b",
+        "android_client_info": {
+          "package_name": "com.kekland.conference"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "995071781018-vhlhe4qp87qnqs55vefcedv52lkpmkbg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd-WO48ggiGN2AnnQexdDDr8Jj5N6RWig"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

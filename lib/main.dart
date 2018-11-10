@@ -5,6 +5,7 @@ import 'package:conference/login_page.dart';
 import 'package:conference/main_page.dart';
 import 'package:conference/registration_page.dart';
 import 'package:conference/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,8 +31,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Colors.blue,
         accentColor: Colors.blueAccent,
+        primaryColor: Colors.white,
       ),
       initialRoute: (Application.prefs.getString("token") != null)? '/' : '/register',
       onGenerateRoute: Application.router.generator,

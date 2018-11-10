@@ -1,3 +1,4 @@
+import 'package:conference/create_page.dart';
 import 'package:conference/login_page.dart';
 import 'package:conference/main_page.dart';
 import 'package:conference/registration_page.dart';
@@ -23,6 +24,9 @@ class Routes {
     return RegistrationPage();
   }, type: HandlerType.route);
   
+  static Handler createHandler = new Handler(handlerFunc: (context, params) {
+    return CreateConferencePage();
+  });
   static void configureRoutes(Router router) {
     router.notFoundHandler = new Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -31,6 +35,6 @@ class Routes {
     router.define(list, handler: listHandler);
     router.define(login, handler: loginHandler);
     router.define(registration, handler: registrationHandler);
-    //router.define(registrationInfo, handler: deepLinkHandler);
+    router.define(create, handler: createHandler);
   }
 }
