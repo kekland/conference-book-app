@@ -1,3 +1,5 @@
+import 'package:conference/application.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -51,17 +53,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 SizedBox(height: 8.0),
                 TextField(
                   decoration: InputDecoration(
-                    prefixIcon: Icon(FontAwesomeIcons.userAlt, size: 18.0),
-                    labelText: 'Your name',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0)),
-                  ),
-                ),
-                SizedBox(height: 8.0),
-                TextField(
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(FontAwesomeIcons.solidBuilding, size: 18.0),
-                    labelText: 'Company (not required)',
+                    prefixIcon: Icon(FontAwesomeIcons.lock, size: 18.0),
+                    labelText: 'Repeat your password',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0)),
                   ),
@@ -72,7 +65,24 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     FlatButton.icon(
                       icon: Icon(FontAwesomeIcons.signInAlt, size: 18.0),
                       label: Text('I have an account'),
-                      onPressed: () {},
+                      onPressed: () {
+                        Application.router.navigateTo(
+                          context,
+                          "/login",
+                          transition: TransitionType.custom,
+                          transitionDuration: Duration(milliseconds: 250),
+                          transitionBuilder: (context, animation, _, widget) {
+                            return Transform(
+                              transform: new Matrix4.translationValues(
+                                  0.0, 20.0 * (1.0 - animation.value), 0.0),
+                              child: Opacity(
+                                opacity: animation.value,
+                                child: widget,
+                              ),
+                            );
+                          },
+                        );
+                      },
                       textColor: Theme.of(context).primaryColor,
                     ),
                     FlatButton.icon(
