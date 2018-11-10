@@ -24,6 +24,7 @@ dependencies:
   shared_preferences:
   dio:
   cookie_jar:
+  rect_getter:
   path_provider:
   date_format:
   dynamic_theme:

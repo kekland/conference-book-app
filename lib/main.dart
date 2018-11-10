@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     Application.router = router;
     SystemChrome.setSystemUIOverlayStyle(new SystemUiOverlayStyle(
         statusBarColor: const Color(0x00FFFFFF),
-        statusBarIconBrightness: Brightness.dark));
+        statusBarIconBrightness: Brightness.light));
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return MaterialApp(
       title: 'Flutter Demo',
