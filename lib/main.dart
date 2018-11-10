@@ -1,5 +1,7 @@
 import 'package:conference/create_page.dart';
+import 'package:conference/login_page.dart';
 import 'package:conference/main_page.dart';
+import 'package:conference/registration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -11,15 +13,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(new SystemUiOverlayStyle(
         statusBarColor: const Color(0x00FFFFFF),
-        statusBarIconBrightness: Brightness.light));
+        statusBarIconBrightness: Brightness.dark));
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Colors.white,
+        primaryColor: Colors.blue,
         accentColor: Colors.blueAccent,
       ),
-      home: MainPage(),
+      home: RegistrationPage(),
     );
   }
 }
