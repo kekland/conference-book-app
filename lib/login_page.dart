@@ -18,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
         data: ThemeData(
           primaryColor: Colors.white,
           accentColor: Colors.white,
+          cursorColor: Colors.white,
           brightness: Brightness.dark,
           inputDecorationTheme: InputDecorationTheme(
             labelStyle: TextStyle(color: Colors.white),

@@ -18,6 +18,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         data: ThemeData(
           primaryColor: Colors.white,
           accentColor: Colors.white,
+          cursorColor: Colors.white,
           brightness: Brightness.dark,
           inputDecorationTheme: InputDecorationTheme(
             labelStyle: TextStyle(color: Colors.white),
