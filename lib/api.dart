@@ -57,4 +57,22 @@ class API {
       }
     }
   }
+
+  static Future<Map> createConference(Map data) async {
+    try {
+      var response = await dio.post(
+        baseURL + '/conferenceRoom',
+        data: data,
+        options: Options(
+          headers: {
+            "Bearer": token,
+          },
+        ),
+      );
+      return response.data;
+    } catch (e) {
+      print(e);
+      throw e;
+    }
+  }
 }
