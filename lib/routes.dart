@@ -1,6 +1,7 @@
 import 'package:conference/create_page.dart';
 import 'package:conference/login_page.dart';
 import 'package:conference/main_page.dart';
+import 'package:conference/profile_page.dart';
 import 'package:conference/registration_page.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class Routes {
   static String registration = '/register';
   static String registrationInfo = '/registerInfo';
   static String create = '/create';
+  static String profile = '/profile/:username';
 
   static Handler listHandler = new Handler(handlerFunc: (context, params) {
     return MainPage();
@@ -27,6 +29,9 @@ class Routes {
   static Handler createHandler = new Handler(handlerFunc: (context, params) {
     return CreateConferencePage();
   });
+  static Handler profileHandler = new Handler(handlerFunc: (context, params) {
+    return ProfilePage(username: params['username'][0]);
+  });
   static void configureRoutes(Router router) {
     router.notFoundHandler = new Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -36,5 +41,6 @@ class Routes {
     router.define(login, handler: loginHandler);
     router.define(registration, handler: registrationHandler);
     router.define(create, handler: createHandler);
+    router.define(profile, handler: profileHandler);
   }
 }

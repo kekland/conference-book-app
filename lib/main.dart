@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:conference/api.dart';
 import 'package:conference/application.dart';
 import 'package:conference/create_page.dart';
@@ -5,12 +7,15 @@ import 'package:conference/login_page.dart';
 import 'package:conference/main_page.dart';
 import 'package:conference/registration_page.dart';
 import 'package:conference/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
+  //final FirebaseApp app = await FirebaseApp.
   Application.prefs = await SharedPreferences.getInstance();
   runApp(MyApp());
 }

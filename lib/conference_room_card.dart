@@ -7,12 +7,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ConferenceRoomCard extends StatelessWidget {
   final File imageFile;
-  final TimeOfDay opensAt, closesAt;
+  final String opensAt, closesAt;
   final String name;
   final String cost;
   final String imageURL, location, capacity;
   final List<String> tags;
   final String room;
+  final String username;
 
   const ConferenceRoomCard(
       {Key key,
@@ -23,7 +24,10 @@ class ConferenceRoomCard extends StatelessWidget {
       this.capacity,
       this.tags,
       this.name,
-      this.imageFile, this.cost, this.room})
+      this.imageFile,
+      this.cost,
+      this.room,
+      this.username})
       : super(key: key);
 
   Widget _getImage() {
@@ -32,7 +36,15 @@ class ConferenceRoomCard extends StatelessWidget {
     } else if (imageURL != null) {
       return Image.network(imageURL, fit: BoxFit.cover);
     }
-    return Container();
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(8.0),
+          topRight: Radius.circular(8.0),
+        ),
+      ),
+    );
   }
 
   @override
@@ -79,13 +91,11 @@ class ConferenceRoomCard extends StatelessWidget {
                   ),
                   IconTextLabel(
                     icon: Icon(FontAwesomeIcons.dollarSign),
-                    text: Text(
-                        '${cost}₸ per hour'),
+                    text: Text('${cost}₸ per hour'),
                   ),
                   IconTextLabel(
                     icon: Icon(FontAwesomeIcons.solidClock),
-                    text: Text(
-                        '${opensAt.format(context)} to ${opensAt.format(context)}'),
+                    text: Text('${opensAt} to ${closesAt}'),
                   ),
                   IconTextLabel(
                     icon: Icon(FontAwesomeIcons.chair),
@@ -96,14 +106,20 @@ class ConferenceRoomCard extends StatelessWidget {
                     text: Text('Room ${room}'),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: Wrap(
-                        children: tags.map<Widget>((tag) {
-                      return TagChip(
-                        label: Text(tag, style: TextStyle(color: Colors.white)),
-                        backgroundColor: Colors.blue,
-                      );
-                    }).toList()),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          child: Text(username[0].toUpperCase()),
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.blue,
+                          maxRadius: 24.0,
+                          minRadius: 24.0,
+                        ),
+                        SizedBox(width: 16.0),
+                        Text(username),
+                      ],
+                    ),
                   ),
                 ],
                 crossAxisAlignment: CrossAxisAlignment.start,

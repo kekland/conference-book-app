@@ -5,6 +5,7 @@ import 'package:conference/app_bar.dart';
 import 'package:conference/application.dart';
 import 'package:conference/conference_room_card.dart';
 import 'package:conference/time_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,7 +20,6 @@ class CreateConferencePage extends StatefulWidget {
 class _CreateConferencePageState extends State<CreateConferencePage> {
   GlobalKey<DataCardState> dataCardKey = new GlobalKey();
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey();
-  FirebaseStorage storage = FirebaseStorage.instance;
   OverlayEntry loadingOverlay;
   saveToAPI() async {
     try {
@@ -39,51 +39,50 @@ class _CreateConferencePageState extends State<CreateConferencePage> {
       TimeOfDay opensAt, closesAt;
       List<String> tags;
       String room;
-      if(dataCardKey.currentState.image == null) {
+      if (dataCardKey.currentState.image == null) {
         throw 'You have to specify image';
       }
       imageFile = dataCardKey.currentState.image;
-      if(dataCardKey.currentState.name == null) {
+      if (dataCardKey.currentState.name == null) {
         throw 'You have to specify name';
       }
       name = dataCardKey.currentState.name;
-      if(dataCardKey.currentState.location == null) {
+      if (dataCardKey.currentState.location == null) {
         throw 'You have to specify location';
       }
       location = dataCardKey.currentState.location;
-      if(dataCardKey.currentState.capacity == null) {
+      if (dataCardKey.currentState.capacity == null) {
         throw 'You have to specify name';
       }
       capacity = dataCardKey.currentState.capacity;
-      if(dataCardKey.currentState.cost == null) {
+      if (dataCardKey.currentState.cost == null) {
         throw 'You have to specify cost';
       }
       cost = dataCardKey.currentState.cost;
-      if(dataCardKey.currentState.room == null) {
+      if (dataCardKey.currentState.room == null) {
         throw 'You have to specify room';
       }
-      cost = dataCardKey.currentState.room;
+      room = dataCardKey.currentState.room;
       opensAt = dataCardKey.currentState.openTime;
       closesAt = dataCardKey.currentState.closeTime;
       tags = [];
 
-      var snapshot = await storage.ref().putFile(imageFile).onComplete;
-      var url = await snapshot.ref.getDownloadURL();
+      //var snapshot = await storage.ref().putFile(imageFile).onComplete;
+      //var url = await snapshot.ref.getDownloadURL();
       await API.createConference({
-        "image": url,
+        "image": null,
         "location": location,
         "name": name,
         "cost": cost,
         "capacity": capacity,
         "room": room,
-        "opens": opensAt.format(context),
-        "closes": closesAt.format(context),
+        "opensAt": opensAt.format(context),
+        "closesAt": closesAt.format(context),
         "tags": tags
       });
       loadingOverlay.remove();
       Application.router.pop(context);
-    }
-    catch(e) {
+    } catch (e) {
       loadingOverlay.remove();
       String message = e.toString();
       scaffoldKey.currentState.showSnackBar(
@@ -94,23 +93,23 @@ class _CreateConferencePageState extends State<CreateConferencePage> {
       );
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text('Share your conference room',
-            style: TextStyle(fontFamily: 'Futura', color: Colors.black)),
-        elevation: 0.0,
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: Icon(FontAwesomeIcons.check, size: 18.0),
-            onPressed: saveToAPI,
-            color: Colors.blue,
-          ),
-        ]
-      ),
+          title: Text('Share your conference room',
+              style: TextStyle(fontFamily: 'Futura', color: Colors.black)),
+          elevation: 0.0,
+          backgroundColor: Colors.white,
+          actions: [
+            IconButton(
+              icon: Icon(FontAwesomeIcons.check, size: 18.0),
+              onPressed: saveToAPI,
+              color: Colors.blue,
+            ),
+          ]),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -144,16 +143,17 @@ class _CreateConferencePageState extends State<CreateConferencePage> {
                     : "Empty",
                 opensAt: (dataCardKey.currentState != null &&
                         dataCardKey.currentState.openTime != null)
-                    ? dataCardKey.currentState.openTime
-                    : TimeOfDay(hour: 8, minute: 0),
+                    ? dataCardKey.currentState.openTime.format(context)
+                    : TimeOfDay(hour: 8, minute: 0).format(context),
                 closesAt: (dataCardKey.currentState != null &&
                         dataCardKey.currentState.closeTime != null)
-                    ? dataCardKey.currentState.closeTime
-                    : TimeOfDay(hour: 17, minute: 0),
+                    ? dataCardKey.currentState.closeTime.format(context)
+                    : TimeOfDay(hour: 17, minute: 0).format(context),
                 tags: (dataCardKey.currentState != null &&
                         dataCardKey.currentState.tags != null)
                     ? dataCardKey.currentState.tags
                     : [],
+                username: Application.prefs.getString("username"),
               ),
               DataCard(
                 key: dataCardKey,
