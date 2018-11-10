@@ -25,6 +25,10 @@ class _LoginPageState extends State<LoginPage> {
               borderSide: BorderSide(color: Colors.white),
               borderRadius: BorderRadius.circular(16.0),
             ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white, width: 2.0),
+              borderRadius: BorderRadius.circular(16.0),
+            )
           ),
         ),
         child: Container(

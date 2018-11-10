@@ -25,6 +25,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
               borderSide: BorderSide(color: Colors.white),
               borderRadius: BorderRadius.circular(16.0),
             ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white, width: 2.0),
+              borderRadius: BorderRadius.circular(16.0),
+            )
           ),
         ),
         child: Container(
@@ -69,8 +73,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     decoration: InputDecoration(
                       prefixIcon: Icon(FontAwesomeIcons.lock, size: 18.0),
                       labelText: 'Password',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
                     ),
                   ),
                   SizedBox(height: 8.0),
