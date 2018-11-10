@@ -1,13 +1,36 @@
+import 'dart:io';
+
 import 'package:conference/icon_text_label.dart';
 import 'package:conference/tag_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ConferenceRoomCard extends StatefulWidget {
-  _ConferenceRoomCardState createState() => _ConferenceRoomCardState();
-}
+class ConferenceRoomCard extends StatelessWidget {
+  final File imageFile;
+  final TimeOfDay opensAt, closesAt;
+  final String name;
+  final String imageURL, location, capacity;
+  final List<String> tags;
 
-class _ConferenceRoomCardState extends State<ConferenceRoomCard> {
+  const ConferenceRoomCard(
+      {Key key,
+      this.opensAt,
+      this.closesAt,
+      this.imageURL,
+      this.location,
+      this.capacity,
+      this.tags, this.name, this.imageFile})
+      : super(key: key);
+
+  Widget _getImage() {
+    if(imageFile != null) {
+      return Image.file(imageFile);
+    }
+    else if(imageURL != null) {
+      return Image.network(imageURL);
+    }
+    return Container();
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,12 +43,7 @@ class _ConferenceRoomCardState extends State<ConferenceRoomCard> {
             Container(
               width: double.infinity,
               height: 120.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8.0),
-                    topRight: Radius.circular(8.0)),
-                color: Colors.pink,
-              ),
+              child: _getImage(),
               foregroundDecoration: BoxDecoration(
                   gradient: LinearGradient(
                 colors: [Colors.black26, Colors.transparent],
@@ -39,41 +57,27 @@ class _ConferenceRoomCardState extends State<ConferenceRoomCard> {
                 children: [
                   IconTextLabel(
                     icon: Icon(FontAwesomeIcons.mapMarkerAlt),
-                    text: Text('Baizakova, 280',
+                    text: Text(location,
                         style: TextStyle(fontWeight: FontWeight.w500)),
                   ),
                   IconTextLabel(
                     icon: Icon(FontAwesomeIcons.solidClock),
-                    text: Text('5:00 to 19:00'),
+                    text: Text(
+                        '${opensAt.format(context)} to ${opensAt.format(context)}'),
                   ),
                   IconTextLabel(
                     icon: Icon(FontAwesomeIcons.chair),
-                    text: Text('200 seats'),
+                    text: Text('${capacity} seats'),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(6.0),
-                    child: Wrap(children: [
-                      TagChip(
-                        label: Text('Amenities',
-                            style: TextStyle(color: Colors.white)),
+                    child: Wrap(
+                        children: tags.map<Widget>((tag) {
+                      return TagChip(
+                        label: Text(tag, style: TextStyle(color: Colors.white)),
                         backgroundColor: Colors.blue,
-                      ),
-                      TagChip(
-                        label: Text('Coffee',
-                            style: TextStyle(color: Colors.white)),
-                        backgroundColor: Colors.purple,
-                      ),
-                      TagChip(
-                        label:
-                            Text('Food', style: TextStyle(color: Colors.white)),
-                        backgroundColor: Colors.deepOrange,
-                      ),
-                      TagChip(
-                        label: Text('Microphone',
-                            style: TextStyle(color: Colors.white)),
-                        backgroundColor: Colors.green,
-                      ),
-                    ]),
+                      );
+                    }).toList()),
                   ),
                 ],
                 crossAxisAlignment: CrossAxisAlignment.start,
