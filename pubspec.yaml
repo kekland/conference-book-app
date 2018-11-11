@@ -29,6 +29,7 @@ dependencies:
   date_format:
   flutter_spinkit: "^3.0.0"
   firebase_storage:
+  qr_flutter:
   image_picker:
 
   dynamic_theme:

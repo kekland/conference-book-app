@@ -20,7 +20,9 @@ class TimePicker extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.0),
           onTap: () async {
             TimeOfDay newTime = await showTimePicker(context: context, initialTime: time);
-            onDateSelected(newTime);
+            if(newTime != null) {
+              onDateSelected(newTime);
+            }
           },
           child: Padding(
             padding: const EdgeInsets.all(12.0),

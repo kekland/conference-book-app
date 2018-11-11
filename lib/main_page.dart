@@ -60,22 +60,26 @@ class _MainPageState extends State<MainPage> {
     } else {
       return ListView.builder(
         itemBuilder: (context, index) {
-          return ConferenceRoomCard(
-            imageURL: null,
-            imageFile: null,
-            capacity: data[index]['capacity'],
-            closesAt: data[index]['closesAt'] != null
-                ? data[index]['closesAt']
-                : '17:00',
-            cost: data[index]['cost'],
-            location: data[index]['location'],
-            name: data[index]['name'],
-            opensAt: data[index]['opensAt'] != null
-                ? data[index]['opensAt']
-                : '8:00',
-            room: data[index]['room'],
-            username: data[index]['createdBy'],
-            tags: [],
+          return Hero(
+            tag: data[index]['id'],
+            child: ConferenceRoomCard(
+              imageURL: null,
+              imageFile: null,
+              capacity: data[index]['capacity'],
+              closesAt: data[index]['closesAt'] != null
+                  ? data[index]['closesAt']
+                  : '17:00',
+              cost: data[index]['cost'],
+              location: data[index]['location'],
+              name: data[index]['name'],
+              opensAt: data[index]['opensAt'] != null
+                  ? data[index]['opensAt']
+                  : '8:00',
+              room: data[index]['room'],
+              username: data[index]['createdBy'],
+              tags: [],
+              raw: data[index],
+            ),
           );
         },
         itemCount: data.length,

@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:conference/application.dart';
 import 'package:conference/icon_text_label.dart';
 import 'package:conference/tag_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ConferenceRoomCard extends StatelessWidget {
+  final Map raw;
   final File imageFile;
   final String opensAt, closesAt;
   final String name;
@@ -27,7 +29,8 @@ class ConferenceRoomCard extends StatelessWidget {
       this.imageFile,
       this.cost,
       this.room,
-      this.username})
+      this.username,
+      this.raw = null})
       : super(key: key);
 
   Widget _getImage() {
@@ -45,6 +48,11 @@ class ConferenceRoomCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _book(BuildContext context) {
+    Application.tempBooking = raw;
+    Application.router.navigateTo(context, '/book');
   }
 
   @override
@@ -105,20 +113,19 @@ class ConferenceRoomCard extends StatelessWidget {
                     icon: Icon(FontAwesomeIcons.sortNumericDown),
                     text: Text('Room ${room}'),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          child: Text(username[0].toUpperCase()),
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.blue,
-                          maxRadius: 24.0,
-                          minRadius: 24.0,
-                        ),
-                        SizedBox(width: 16.0),
-                        Text(username),
-                      ],
+                  IconTextLabel(
+                    icon: Icon(FontAwesomeIcons.solidBuilding),
+                    text: Text('${username}'),
+                  ),
+                  Visibility(
+                    visible: (raw != null),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: FlatButton(
+                        child: Text('Book'),
+                        textColor: Colors.blue,
+                        onPressed: () => _book(context),
+                      ),
                     ),
                   ),
                 ],

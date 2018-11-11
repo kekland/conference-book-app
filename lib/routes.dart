@@ -1,3 +1,4 @@
+import 'package:conference/book_page.dart';
 import 'package:conference/create_page.dart';
 import 'package:conference/login_page.dart';
 import 'package:conference/main_page.dart';
@@ -12,6 +13,7 @@ class Routes {
   static String registration = '/register';
   static String registrationInfo = '/registerInfo';
   static String create = '/create';
+  static String book = '/book';
   static String profile = '/profile/:username';
 
   static Handler listHandler = new Handler(handlerFunc: (context, params) {
@@ -32,6 +34,9 @@ class Routes {
   static Handler profileHandler = new Handler(handlerFunc: (context, params) {
     return ProfilePage(username: params['username'][0]);
   });
+  static Handler bookHandler = new Handler(handlerFunc: (context, params) {
+    return BookPage();
+  });
   static void configureRoutes(Router router) {
     router.notFoundHandler = new Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -42,5 +47,6 @@ class Routes {
     router.define(registration, handler: registrationHandler);
     router.define(create, handler: createHandler);
     router.define(profile, handler: profileHandler);
+    router.define(book, handler: bookHandler);
   }
 }
